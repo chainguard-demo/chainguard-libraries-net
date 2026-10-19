@@ -9,8 +9,9 @@ A small, demo-only banking app: an ASP.NET Core minimal API plus a single-page w
 ```
 ├── src/BankingDemo.Api/        # API, domain, EF Core persistence, static UI (wwwroot)
 ├── tests/BankingDemo.Tests/    # Integration tests (WebApplicationFactory)
+├── env.sh                      # Helper script to generate Chainguard Pull Token
 ├── nuget.config                # Default: nuget.org
-└── nuget.chainguard.config     # Alternate: restore from $NUGET_SOURCE_URL (Chainguard Libraries / Artifactory)
+└── nuget.chainguard.config     # Alternate: restore from Chainguard Libraries
 ```
 
 ## Run locally with the `dotnet` CLI
@@ -37,14 +38,17 @@ Run the tests:
 dotnet test
 ```
 
-## Restoring NuGet packages from Chainguard Libraries (or Artifactory)
+## Restoring NuGet packages from Chainguard Libraries
 
-By default, packages restore from nuget.org (`nuget.config`). To restore **only** from another NuGet v3 feed, such as Chainguard Libraries or an Artifactory/Nexus remote that proxies it, use `nuget.chainguard.config`. It reads the feed URL and credentials from environment variables at restore time, so no secrets are written to disk.
+By default, packages restore from nuget.org (`nuget.config`). To restore **only** from Chainguard Libraries, use `nuget.chainguard.config`. It reads the feed URL and credentials from environment variables at restore time.
 
 ### Locally
 
 ```bash
-export NUGET_SOURCE_URL="https://<your-feed>/index.json"
+source env.sh your_chainguard_org
+
+# or set directly:
+
 export NUGET_USERNAME="<username>"
 export NUGET_PASSWORD="<token>"
 
