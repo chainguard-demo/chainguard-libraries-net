@@ -7,4 +7,3 @@ data/
 .vs/
 .idea/
 *.user
-env.sh
